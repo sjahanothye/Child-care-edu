@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>HealthInfo</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">HealthInfoId</th>
+      <th scope="col">ChildId</th>
+      <th scope="col">Vaccination</th>
+      <th scope="col">Allergies</th>
+      <th scope="col">MedicalCondition</th>
+      <th scope="col">CheckupDate</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in object_project %}
+    <tr>
+      <td>{{ p.HealthInfoId }}</td>
+      <td>{{ p.ChildId }}</td>
+      <td>{{ p.Vaccination }}</td>
+      <td>{{ p.Allergies }}</td>
+      <td>{{ p.MedicalCondition }}</td>
+      <td>{{ p.CheckupDate }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

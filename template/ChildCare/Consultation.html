@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Consultation</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ConsultationId</th>
+      <th scope="col">ChildId</th>
+      <th scope="col">ConsultationDate</th>
+      <th scope="col">ConsultationTime</th>
+      <th scope="col">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in object_project %}
+    <tr>
+      <td>{{ c.ConsultationId }}</td>
+      <td>{{ c.ChildId }}</td>
+      <td>{{ c.ConsultationDate }}</td>
+      <td>{{ c.ConsultationTime }}</td>
+      <td>{{ c.Notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

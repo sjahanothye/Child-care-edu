@@ -16,7 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ChildCare import views as c_views
+from . import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+    path('', c_views.Home, name='home'),
+    path('Parents/', c_views.parents, name='parents'),
+    path('Child/', c_views.child, name='child'),
+    path('Doctor/', c_views.doctor, name='doctor'),
+    path('Consultation/', c_views.consultation, name='consultation'),
+    path('HealthInfo/', c_views.healthInfo, name='healthinfo'),
+    path('Schedule/', c_views.schedule, name='schedule'),
+    path('LearningPlan/', c_views.learningPlan, name='learningPlan'),
+    path('child/certificate/<int:child_id>/', c_views.view_certificate, name='view_certificate'),
+    path('login/', c_views.login_view, name='login'),
+    path('signup/', c_views.signup, name='signup'),  # Fixed this line
+    path('logout/', c_views.logout_view, name='logout'),
+    path('child/certificate/<int:child_id>/', c_views.view_certificate, name='view_certificate'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Certificate for {{ child.Childname }}</h1>
+
+<div>
+    <p><strong>Child ID:</strong> {{ child.ChildId }}</p>
+    <p><strong>Parent Name:</strong> {{ child.ParentsId.Name }}</p>
+    <p><strong>Birthdate:</strong> {{ child.BirthDate }}</p>
+
+    <!-- Point 2: Add link to download the certificate file -->
+    {% if child.ChildCertificate %}
+        <p><strong>Certificate File:</strong> <a href="{{ child.ChildCertificate.url }}" target="_blank">Download Certificate</a></p>
+    {% else %}
+        <p>No Certificate File Available</p>
+    {% endif %}
+</div>
+
+<a href="{% url 'Child' %}">Back to Child List</a>
+{% endblock %}

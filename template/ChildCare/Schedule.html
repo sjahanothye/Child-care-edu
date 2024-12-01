@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Schedule</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ScheduleId</th>
+      <th scope="col">ChildId</th>
+      <th scope="col">SchoolType</th>
+    </tr>
+  </thead>
+  <tbody id="schedule-table-body">
+  {% for p in object_project %}
+    <tr>
+      <td>{{ p.ScheduleId }}</td>
+      <td>{{ p.ChildId }}</td>
+      <td>{{ p.SchoolType }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<!-- Add new entry form -->
+<form id="add-schedule-form">
+  <div>
+    <label for="schedule-id">Schedule ID:</label>
+    <input type="text" id="schedule-id" name="schedule_id" required>
+  </div>
+  <div>
+    <label for="child-id">Child ID:</label>
+    <input type="text" id="child-id" name="child_id" required>
+  </div>
+  <div>
+    <label for="school-type">School Type:</label>
+    <input type="text" id="school-type" name="school_type" required>
+  </div>
+  <button type="button" id="add-schedule-button">Add Schedule</button>
+</form>
+
+<script>
+  document.getElementById('add-schedule-button').addEventListener('click', function() {
+    const scheduleId = document.getElementById('schedule-id').value;
+    const childId = document.getElementById('child-id').value;
+    const schoolType = document.getElementById('school-type').value;
+
+    if (scheduleId && childId && schoolType) {
+      const tableBody = document.getElementById('schedule-table-body');
+      const newRow = `<tr>
+                        <td>${scheduleId}</td>
+                        <td>${childId}</td>
+                        <td>${schoolType}</td>
+                      </tr>`;
+      tableBody.innerHTML += newRow;
+
+      // Clear form inputs
+      document.getElementById('schedule-id').value = '';
+      document.getElementById('child-id').value = '';
+      document.getElementById('school-type').value = '';
+    } else {
+      alert('Please fill in all fields');
+    }
+  });
+</script>
+{% endblock %}

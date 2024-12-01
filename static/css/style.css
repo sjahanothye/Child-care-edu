@@ -1,0 +1,24 @@
+/* Background Style */
+body {
+    background-image: url("..images/mygp.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
+/* Footer */
+footer {
+    background-color: #343a40; /* Dark gray */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* Header Styling */
+h1 {
+    color: white;
+    text-align: center;
+    padding-top: 100px;
+}

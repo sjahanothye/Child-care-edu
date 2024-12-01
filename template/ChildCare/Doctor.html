@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Doctor</h1>
+<table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">DoctorId</th>
+      <th scope="col">Name</th>
+      <th scope="col">Specification</th>
+      <th scope="col">AvailableHours</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for d in object_project%}
+    <tr>
+      <td>{{d.DoctorId}}</td>
+       <td>{{d.Name}}</td>
+      <td>{{d.Specification}}</td>
+      <td>{{d.AvailableHours}}</td>
+    </tr>
+  {%endfor%}
+  </tbody>
+</table>
+{% endblock %}

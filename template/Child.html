@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Child</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Childname</th>
+      <th scope="col">ChildId</th>
+      <th scope="col">ParentsId</th>
+      <th scope="col">ChildCertificate</th>
+      <th scope="col">Birthdate</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in object_child %}
+    <tr>
+      <td>{{ c.Childname }}</td>
+      <td>{{ c.ChildId }}</td>
+      <td>{{ c.ParentsId.Name }}</td> <!-- Displays the Parent's Name -->
+
+      <!-- Point 1: Add link to view_certificate -->
+      <td>
+        {% if c.ChildCertificate %}
+          <a href="{% url 'view_certificate' c.ChildId %}">View Certificate</a>
+        {% else %}
+          No Certificate Available
+        {% endif %}
+      </td>
+
+      <td>{{ c.BirthDate }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">No child data available.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

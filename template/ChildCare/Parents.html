@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Parents</h1>
+     <!-- Debugging line to check the context -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ParentsId</th>
+                <th scope="col">ParentsNID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in object_project %}
+            <tr>
+                <td>{{ p.ParentsId }}</td>
+                <td>{{ p.ParentsNID }}</td>
+                <td>{{ p.Name }}</td>
+                <td>{{ p.Email }}</td>
+                <td>{{ p.Phone }}</td>
+                <td>{{ p.Address }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
