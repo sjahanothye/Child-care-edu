@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Consultation List</h1>
+<a href="{% url 'consultation_create' %}">Add Consultation</a>
+<table>
+    <tr>
+        <th>Child</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Notes</th>
+        <th>Actions</th>
+    </tr>
+    {% for consult in consultations %}
+    <tr>
+        <td>{{ consult.ChildId }}</td>
+        <td>{{ consult.ConsultationDate }}</td>
+        <td>{{ consult.ConsultationTime }}</td>
+        <td>{{ consult.Notes }}</td>
+        <td>
+            <a href="{% url 'consultation_update' consult.id %}">Edit</a>
+            <a href="{% url 'consultation_delete' consult.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

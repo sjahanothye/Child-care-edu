@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Health Info List</h1>
+<a href="{% url 'healthinfo_create' %}">Add Health Info</a>
+<table>
+    <tr>
+        <th>Child</th>
+        <th>Vaccination</th>
+        <th>Allergies</th>
+        <th>Medical Condition</th>
+        <th>Actions</th>
+    </tr>
+    {% for info in healthinfo %}
+    <tr>
+        <td>{{ info.ChildId }}</td>
+        <td>{{ info.Vaccination }}</td>
+        <td>{{ info.Allergies }}</td>
+        <td>{{ info.MedicalCondition }}</td>
+        <td>
+            <a href="{% url 'healthinfo_update' info.id %}">Edit</a>
+            <a href="{% url 'healthinfo_delete' info.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -19,7 +19,7 @@ class Child(models.Model):
     ChildId=models.IntegerField(blank=True, null=True)
     ParentsId=models.ForeignKey(Parents, on_delete=models.CASCADE, blank=True, null=True)
     ChildCertificate=models.ImageField(upload_to='certificate/')
-    BrithDate=models.DateTimeField(auto_now_add= True, auto_now= False)
+    BrithDate = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.Childname

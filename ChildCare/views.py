@@ -12,6 +12,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from .forms import ChildForm
+from .forms import HealthInfoForm, ConsultationForm
+from django.shortcuts import render
+from django.template.loader import get_template
+
 
 from django.shortcuts import render, get_object_or_404
 
@@ -90,6 +96,42 @@ def child(request):
     object_child = Child.objects.all()  # Fetch all child records
     return render(request, template_name='Child.html',context= {'object_child': object_child})
 
+def child_list(request):
+    """Display all child records"""
+    object_child = Child.objects.all()
+    return render(request, template_name='ChildCare/child_list.html', context={'object_child': object_child})
+
+def child_create(request):
+    """Create a new child record"""
+    if request.method == 'POST':
+        form = ChildForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('child_list')
+    else:
+        form = ChildForm()
+    return render(request, template_name='ChildCare/child_form.html', context={'form': form})
+
+def child_update(request, child_id):
+    """Update an existing child record"""
+    child = get_object_or_404(Child, id=child_id)
+    if request.method == 'POST':
+        form = ChildForm(request.POST, request.FILES, instance=child)
+        if form.is_valid():
+            form.save()
+            return redirect('child_list')
+    else:
+        form = ChildForm(instance=child)
+    return render(request, template_name='ChildCare/child_form.html', context={'form': form})
+
+def child_delete(request, child_id):
+    """Delete a child record"""
+    child = get_object_or_404(Child, id=child_id)
+    if request.method == 'POST':
+        child.delete()
+        return redirect('child_list')
+    return render(request, template_name='ChildCare/child_confirm_delete.html', context={'child': child})
+
 def view_certificate(request, child_id):
     child = get_object_or_404(Child, id=child_id)
     return render(request, template_name='ChildCare/view_certificate.html',contex= {'child': child})
@@ -135,5 +177,80 @@ def doctor(request):
     }
     return render(request, template_name='ChildCare/Doctor.html', context=context)
 
+
+def home(request):
+    try:
+        # Debugging line: Check if the template is found
+        print(get_template('ChildCare/home.html'))  # This will print the template details if it's found
+    except Exception as e:
+        print(f"Error loading template: {e}")  # This will print any error if the template is not found
+
+    return render(request, template_name='ChildCare/home.html')
+
+def healthinfo_list(request):
+    healthinfo = HealthInfo.objects.all()
+    return render(request, template_name='ChildCare/healthinfo_list.html', context={'healthinfo': healthinfo})
+
+def healthinfo_create(request):
+    if request.method == 'POST':
+        form = HealthInfoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('healthinfo_list')
+    else:
+        form = HealthInfoForm()
+    return render(request, template_name='ChildCare/healthinfo_form.html', context={'form': form})
+
+def healthinfo_update(request, healthinfo_id):
+    healthinfo = get_object_or_404(HealthInfo, id=healthinfo_id)
+    if request.method == 'POST':
+        form = HealthInfoForm(request.POST, instance=healthinfo)
+        if form.is_valid():
+            form.save()
+            return redirect('healthinfo_list')
+    else:
+        form = HealthInfoForm(instance=healthinfo)
+    return render(request, template_name='ChildCare/healthinfo_form.html', context={'form': form})
+
+def healthinfo_delete(request, healthinfo_id):
+    healthinfo = get_object_or_404(HealthInfo, id=healthinfo_id)
+    if request.method == 'POST':
+        healthinfo.delete()
+        return redirect('healthinfo_list')
+    return render(request, template_name='ChildCare/healthinfo_confirm_delete.html', context={'healthinfo': healthinfo})
+
+
+# CRUD for Consultation
+def consultation_list(request):
+    consultations = Consultation.objects.all()
+    return render(request, template_name='ChildCare/consultation_list.html', context={'consultations': consultations})
+
+def consultation_create(request):
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('consultation_list')
+    else:
+        form = ConsultationForm()
+    return render(request, template_name='ChildCare/consultation_form.html', context={'form': form})
+
+def consultation_update(request, consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST, instance=consultation)
+        if form.is_valid():
+            form.save()
+            return redirect('consultation_list')
+    else:
+        form = ConsultationForm(instance=consultation)
+    return render(request, template_name='ChildCare/consultation_form.html', context={'form': form})
+
+def consultation_delete(request, consultation_id):
+    consultation = get_object_or_404(Consultation, id=consultation_id)
+    if request.method == 'POST':
+        consultation.delete()
+        return redirect('consultation_list')
+    return render(request, template_name='ChildCare/consultation_confirm_delete.html', context={'consultation': consultation})
 
 

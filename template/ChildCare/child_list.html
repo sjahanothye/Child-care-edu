@@ -1,0 +1,31 @@
+<h1>Child List</h1>
+<a href="{% url 'child_create' %}">Create New Child</a>
+<table>
+    <tr>
+        <th>Child Name</th>
+        <th>Child ID</th>
+        <th>Parent</th>
+        <th>Certificate</th>
+        <th>Birth Date</th>
+        <th>Actions</th>
+    </tr>
+    {% for child in object_child %}
+    <tr>
+        <td>{{ child.Childname }}</td>
+        <td>{{ child.ChildId }}</td>
+        <td>{{ child.ParentsId.Name }}</td>
+        <td>
+            {% if child.ChildCertificate %}
+            <img src="{{ child.ChildCertificate.url }}" alt="Certificate" width="50">
+            {% else %}
+            No Certificate
+            {% endif %}
+        </td>
+        <td>{{ child.BrithDate }}</td>
+        <td>
+            <a href="{% url 'child_update' child.id %}">Edit</a>
+            <a href="{% url 'child_delete' child.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

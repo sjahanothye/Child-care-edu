@@ -28,7 +28,8 @@
         {% endif %}
       </td>
 
-      <td>{{ c.BirthDate }}</td>
+      <td>{{ child.birthdate|date:"F j, Y" }}</td>
+
     </tr>
     {% empty %}
     <tr>
